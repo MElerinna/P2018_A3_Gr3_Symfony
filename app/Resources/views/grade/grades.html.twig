@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section>
+        {% for grade in grades %}
+            <article>
+                <h1>{{ grade.lesson.title }}</h1>
+                <p>{{ grade.user.username }} got {{ grade.grade }}</p>
+            </article>
+        {% endfor %}
+    </section>
+{% endblock %}
