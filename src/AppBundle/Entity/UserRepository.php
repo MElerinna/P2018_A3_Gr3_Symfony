@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Role\RoleInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -55,5 +56,21 @@ class UserRepository extends EntityRepository implements UserProviderInterface
     {
         return $this->getEntityName() === $class
         || is_subclass_of($class, $this->getEntityName());
+    }
+
+}
+
+class UserDependentRole implements RoleInterface
+{
+    private $user;
+
+    public function __construct(UserInterface $user)
+    {
+        $this->user = $user;
+    }
+
+    public function getRole()
+    {
+        return 'ROLE_' . strtoupper($this->user->getUsername());
     }
 }

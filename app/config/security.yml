@@ -11,6 +11,11 @@ security:
             entity:
                 class: AppBundle:User
     firewalls:
+        secured_area:
+            pattern: ^/api
+            stateless: true
+            simple_preauth:
+                authenticator: apikey_authenticator
         default:
             anonymous:  ~
             pattern:    ^/

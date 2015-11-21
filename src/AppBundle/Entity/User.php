@@ -47,6 +47,11 @@ class User implements AdvancedUserInterface, \Serializable
      */
     private $apiKey;
 
+    /**
+     * @ORM\Column(type="json_array")
+     */
+    private $roles = array();
+
     public function __construct()
     {
         $this->isActive = true;
@@ -74,8 +79,12 @@ class User implements AdvancedUserInterface, \Serializable
 
     public function getRoles()
     {
-        return array('ROLE_USER');
+
+            return $this->roles;
+
     }
+
+
 
     public function eraseCredentials()
     {
@@ -258,5 +267,19 @@ class User implements AdvancedUserInterface, \Serializable
     public function __toString()
     {
         return $this->getUsername();
+    }
+
+    /**
+     * Set roles
+     *
+     * @param array $roles
+     *
+     * @return User
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+
+        return $this;
     }
 }
